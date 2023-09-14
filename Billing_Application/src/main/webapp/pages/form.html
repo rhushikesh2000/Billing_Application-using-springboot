@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+<script>
+var xmlhttp;
+function post(){
+	xmlhttp=new XMLHttpRequest();
+	xmlhttp.onload=show3;
+	xmlhttp.open("post","http://localhost:8080/rhushikesh");
+	var Billno=document.form1.Billno.value;
+	var Customer_name=document.form1.Customer_name.value;
+	var Mobile_no=document.form1.Mobile_no.value;
+	var Subtotal=document.form1.Subtotal.value;
+	var Date=document.form1.Date.value;
+	var gst=document.form1.gst.value;
+	var Gst_total=document.form1.Gst_total.value;
+	var Discount=document.form1.Discount.value;
+	var FinalTotal=document.form1.FinalTotal.value;
+	var RecivedAmount=document.form1.RecivedAmount.value;
+	var CreditedAmount=document.form1.CreditedAmount.value;
+	
+	var obj={
+	        "Billno":Billno ,
+	        "Customer_name": Customer_name,
+	        "Mobile_no": Mobile_no,
+	        "Subtotal": Subtotal,
+	        "description": description,
+	        "Subtotal": Subtotal,
+	        "gst": gst,
+	        "Gst_total": Gst_total,
+	        "Discount": Discount,
+	        "RecivedAmount": RecivedAmount,
+	        "CreditedAmount": CreditedAmount,
+	    };
+	xmlhttp.setRequestHeader('Content-type','application/json');
+	xmlhttp.send(JSON.stringify(obj));
+	}
+	function show3(){
+	alert(xmlhttp.responseText);
+	}
+</script>
+</head>
+<body>
+
+         <form action="rhushikesh">
+        Billno <input type="text" name="Billno" placeholder="Billno"><br></br> 
+	     Customer_name  <input type="text" value="rushi" name="Customer_name" placeholder="Customer_name"><br></br>
+	     Mobile_no  <input type="text" name="Mobile_no" placeholder="Mobile_no"><br></br>
+	     Date  <input type="text" name="Date" placeholder="Date"><br></br>
+		Subtotal  <input type="text" name="Subtotal" placeholder="Subtotal+"><br></br>
+	
+		gst  <input type="text" name="gst" placeholder="gst"><br></br>
+		Gst_total  <input type="text" name="Gst_total" placeholder="Gst_total"><br></br>
+		Discount  <input type="text" name="Discount" placeholder="Discount"><br></br>
+		FinalTotal  <input type="text" name="FinalTotal" placeholder="FinalTotal"><br></br>
+		RecivedAmount  <input type="text" name="RecivedAmount" placeholder="RecivedAmount"><br></br>
+		CreditedAmount  <input type="text" name="CreditedAmount" placeholder="CreditedAmount"><br></br>\
+		<input type="submit" >
+		</form>
+</body>
+</html>

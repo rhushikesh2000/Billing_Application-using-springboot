@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jautocalc@1.3.1/dist/jautocalc.js"></script>
+	
+
+    <title>Document</title>
+
+    <script type="text/javascript" src="dist/jautoCalc.js"></script>
+    <script type="text/javascript">     
+
+      
+            $(function() {  
+                function autoCalcSetup() {
+				$('form#cart').jAutoCalc('destroy');
+				$('form#cart tr.line_items').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
+				$('form#cart').jAutoCalc({decimalPlaces: 2});
+			}
+			autoCalcSetup();
+
+
+			$('button.row-remove').on("click", function(e) {
+				e.preventDefault();
+
+				var form = $(this).parents('form')
+				$(this).parents('tr').remove();
+				autoCalcSetup();
+
+			});
+
+			$('button.row-add').on("click", function(e) {
+				e.preventDefault();
+
+				var $table = $(this).parents('table');
+				var $top = $table.find('tr.line_items').first();
+				var $new = $top.clone(true);
+
+				$new.jAutoCalc('destroy');
+				$new.insertBefore($top);
+				$new.find('input[type=text]').val('');
+				autoCalcSetup();
+
+			});
+
+		});
+
+        
+    </script>
+</head>
+<body>
+     <img src="maaax.png" style="height:50px; " >
+    <div>
+            <h3 style="text-align: center; color: blue;"><strong>Maaax Wholesaler </strong></h3>
+        </div>
+
+        <!-- ------------------invoice address and date--------------------------->
+        
+        <p>
+            <label style="margin-left: 100px;" >Invoice No:</label> 
+                <input type="text" value="" name="invoice" size="19.5">
+                <a style="padding-left: 280px;"> <i class="fa fa-address-book"></i> Manjri Road Hadapsar Pune.</a>
+            </p>    
+        
+            <!---------------------------- Datee -and cust-------------------------------->
+            <script>function display_ct6() {
+                var x = new Date()
+                var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+                hours = x.getHours( ) % 12;
+                hours = hours ? hours : 12;
+                var x1=x.getMonth() + 1+ "/" + x.getDate() + "/" + x.getFullYear(); 
+                x1 = x1 + " - " +  hours + ":" +  x.getMinutes() + ":" +  x.getSeconds() + ":" + ampm;
+                document.getElementById('ct6').innerHTML = x1;
+                display_c6();
+                 }
+                 function display_c6(){
+                var refresh=1000; // Refresh rate in milli seconds
+                mytime=setTimeout('display_ct6()',refresh)
+                }
+                display_c6()
+                </script>
+
+                <p>
+                    <lable style="margin-left: 50px;" for="Buyer">Customer Details:</lable>
+                    <input type= "text" autocomplete="off"/>
+                    <lable id='ct6' style=" padding-left: 655px;" for="date"></lable>
+                
+                </p>
+
+
+
+        <!---------------------- ---- mob no------------------------------------------------------>
+
+        <p><lable style="margin-left: 100px;" for="Buyer">Mobile No:</lable>
+            <input type= "" value="" name="Mobile No" maxlength="10"/>
+        </p>
+
+
+        <!------------------------------table-------------------------------------------->
+
+
+
+            <form id="cart">
+                <table name="cart">
+
+            <table name="cart" table id="myTable" class="table table-striped table-bordered">
+                <tr>
+                    <th>Sr no</th>
+                    <th>Item code</th>
+                    <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>price</th>
+                        <th>Item total</th>
+                        <th>Delete</th>
+                    </tr>
+
+
+                    <script>
+                        function deleteRow(r) {
+                          var i = r.parentNode.parentNode.rowIndex;
+                          document.getElementById("myTable").deleteRow(i);
+                        }
+                        </script>
+                       
+
+                    <tr class="line_items">
+                        <td><input type="text" name="Sr no" size="3" autocomplete="off"> </td>
+                        <td><input type="text" name="Item" size="30" autocomplete="off"></td>
+                        <td><input type="text" name="prod" size="30" autocomplete="off"></td>
+                        <td><input type="text" name="qty"  value="00 " size="3" placeholder="0.00" autocomplete="off"></td>
+                        <td><input type="text" name="price" size="9.99" placeholder="0.00" autocomplete="off"></td>
+                        <td><input type="text" name="item_total" value=" " placeholder="0.00" jautoCalc="{qty} * {price}" ></td>
+
+                        <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+                    </tr>
+
+
+                  
+                    
+<!-------------------------------------------------ROW annd SUB TOTAl --------------------------------------------------------------->
+                    <tr>
+                        <tr>
+                            <td colspan="1"><button class="row-add">Add Row</button></td>
+                
+                            <td clospan="2">&nbsp;</td>
+                        <td clospan="3">&nbsp;</td>
+                        <td clospan="4">&nbsp;</td>
+                
+                        <td><strong>Subtotal :</strong></td>
+                        
+
+                        <td><input type ="text" id="st" name="sub_total" value="" placeholder="0.00" jautoCalc="SUM({item_total})"> </td>
+                        </tr>
+                    </tr>
+<!-------------------------------------------------GST --------------------------------------------------------------->
+                   
+                   
+                        <tr>
+                        <td colspan="3">&nbsp;</td>
+                        <td clospan="4">&nbsp;</td>
+                        <td>
+                            <strong>GST &#x00025; :</strong>
+
+                            <select name="GST">
+                                <option value=".00">0</option>
+                                <option value=".5">5&#x00025;</option>
+                                <option value=".12">12&#x00025;</option>
+                                <option value=".18">18&#x00025;</option>
+                                <option value=".28">28&#x00025;</option>
+                                <option selected value=".00">Please select GST &#x00025;</option>
+                            </select>
+
+                        </td>
+
+                        <td><input type="text" name="tax_total" value="" placeholder="0.00" jautoCalc="{sub_total} *{GST}" ></td>
+                    </tr>
+<!---------------------------------------------------------TOTAL----------------------------------------------------->
+                    
+                    <tr> <td colspan="3">&nbsp;</td>
+                        <td clospan="4">&nbsp;</td>
+                        <td><strong>Total :</strong></td>
+                        <td><input type="text" name="grand_total"  id= "ta" value="" jAutoCalc="{sub_total} + {tax_total}"></td>
+                    </tr>
+                                    
+
+<!----------------------------------------------------------DISCOUNT-------------------------------------------------->
+                    
+                        
+                     <tr id="dp">
+                        <td colspan="3">&nbsp;</td>
+                        <td clospan="4">&nbsp;</td>
+                        <td><strong>Discount :<strong></td>
+                        <td><input type="text"  name="discount_percent" value=""  placeholder="&#x00025;" autocomplete="off"></td>
+            
+                    </tr>
+
+<!----------------------------------------------------------DISCOUNT TOTAl--------------------------------------------------->
+                 
+
+
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                        <td clospan="4">&nbsp;</td>
+                        <td><strong>Discount Total :</strong></td>
+                        <td><input type="text" name="discount_total" value=""  autocomplete="off" jautoCalc="{sub_total} - {sub_total * discount_percent }" ></td>
+                    </tr>
+
+<!----------------------------------------------------------FINAL AMOUNT--------------------------------------------------->
+                        <tr id="fa">
+                            <td colspan="3">&nbsp;</td>
+                            <td clospan="4">&nbsp;</td>
+                            <td><strong>Final Total :</strong></td>
+                            <td><input type="text" name="grand_total" value="" autocomplete="off" jautCalc="{sub_total} + {tax_total}"> </td>
+                        </tr>           
+                        
+ <!----------------------------------------------------------PAYMENT MODE--------------------------------------------------->                    
+                    
+                        <tr>
+                            <td colspan="3">&nbsp;</td>
+                            <td clospan="4">&nbsp;</td>
+                            <td>
+                                <strong>Payment Mode </strong>
+                                <select name="Paymet_Mode">
+                                    <option value=" ">Cash</option>
+                                    <option value="">Credit Card</option>
+                                    <option selected value=" ">Please select Payment Mode</option>
+                                </select>
+                                <script>
+                              var criteria_id =  $(this).attr('data-id');
+                              $('.Payment_Mode').val(criteria_id);
+                            </script>
+    
+                            </td>
+                            <td><input type="text" name="Payment_Mode" autocomplete="off" value="" ></td>
+                     </tr>
+
+                
+
+ <!----------------------------------------------------------Received Amount--------------------------------------------------->  
+                            
+                            <tr>
+                                <td colspan="3">&nbsp;</td>
+                                <td clospan="4">&nbsp;</td>
+                                <td><strong>Recceived Amount:</strong></td>
+                                <td><input type="text" name=" Recceived" autocomplete="off" value="" ></td>
+                                <!-- <td><input type="text" name="grand_total" value="" jautCalc="{sub_total} + {tax_total}"> </td> -->
+                            </tr>        
+
+   <!----------------------------------------------------------Credited MODE--------------------------------------------------->     
+
+                            <tr>
+                                <td colspan="3">&nbsp;</td>
+                                <td clospan="4">&nbsp;</td>
+                                <td><strong>Credited Amount :</strong></td>
+                                <td><input type="text" name="Credited" autocomplete="off" value="" ></td>
+                                <!-- <td><input type="text" name="grand_total" value="" jautCalc="{sub_total} + {tax_total}"> </td> -->
+                            </tr>   
+                        </table>     
+
+
+<!--------------------------------------------------------new ,Edit , Save , Print , Clear------------------------------------------->
+                         
+
+
+<!-- 
+
+                        <div class="bg">
+                            <div class="center">>
+                            <ul>
+                                <li><a href="">NEW</a></li>
+                                <li><a href="">EDIT</a></li>
+                                <li><a href="">SAVE</a></li>
+                                <li><a href="">PRINT</a></li>
+                                <li><a href="">DELETE</a></li>
+                            </ul>
+                            </div>
+                        </div>
+
+                        <style>
+
+                            
+                            .center{
+                                position: absolute;
+                                align-items: center;
+                                
+                                transform: translate(-50%,-50%);
+
+                            }
+
+
+                        </style> -->
+
+
+
+
+
+
+                        <td style="text-decoration: none; padding: 15px 35px; display: block; text-align: center; margin-left: 50px;">   
+                            <input type="button" id="edit-button" value="Edit" class=" edit" onclick=" Edit_row('1')">
+                        <input type="button" id="save-button" value="Save" class=" save" onclick=" Save_row('1')">
+                        <input type="button" id="delete-button" value="Delete" class="delete" onclick=" Delete_row('1')">
+                        <input type="button" id="new-button" value="New" class="New" onclick=" Newe_row('1')">
+                        <input type="button" id="Print-button" value="Print" class="Print" onclick=" Print_row('1')">
+
+
+                        </td> 
+
+ 
+
+
+
+                 
+
+                  <aside>
+                    <h4 class ="center"> <span contentedittable> Additional Notes </span></h4>
+                    <div>
+                        <p class ="center">  Product once sold can not be returned</p>
+
+                        <p class ="center"> A finance charge of 5% will be made on unpaid balance after 30 days fir whole sale supiers.</p>
+                    </div>
+                </aside> 
+
+                <div>
+                 <aside>
+                    <h5 class = "center"><span contenteditable> contact us </span></h5>
+                    <p style = "text-align :center;">  <i class = "fa-book:"></i> &nbsp;&nbsp;&nbsp;
+                         <i class = "fa fa-pencil" aria-hidden="true"></i> 
+                   <i class = "fa-inbox:"></i> Gmail:- mail2mw@gmial.com &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                    <i class = "fa fa-phone " aria-hidden="true"></i>+91  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                    <i class = "fa fa-phone" aria-hidden = "true"></i>+91 &nbsp;&nbsp;&nbsp; 
+                    <i class = 'fa fa-Facebook'></i> &nbsp;&nbsp;&nbsp; 
+                    <i class = 'fa fa-whatsapp'></i> &nbsp;&nbsp;&nbsp; 
+                    <i class = 'fa fa-linkrdin'></i> &nbsp;&nbsp;&nbsp; 
+                    <i class = 'fa fa-twitter'></i> &nbsp;&nbsp;&nbsp; 
+                 </aside>     
+               </div>
+               <style>
+                    
+                    body { font-family: 'Robot'; background-color: white; padding:5px}
+                    .container{padding: 20px}
+
+
+                              .table{  
+                                
+                                text-align: center;}
+                *[contenteditable] {curser: pointer;}
+                *[contenteditable]:hover
+                *[contenteditable]:focus,  td:hover
+                *[contenteditable], text-decoration:focus
+                .h4 { font: bold 100% sans-serif; letter-spacing: 0.3em; text-align: center;text-transform: uppercase;}
+                /* aside */
+
+                aside h4 { border : none; border-width: 00 1px; margine: 0 0 1em;}
+                aside h4 { border-color:  #999; border-bottom-style: solid;}
+                aside h4 { border-color: #999; border-top-style: solid; border-bottom-style:solid;}
+                .center{ text-align: center;}
+
+
+                </style>
+                   
+
+</body>
+</html>
